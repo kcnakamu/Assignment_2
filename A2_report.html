@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Vis & Society Assignment 2</title>
+	<link rel="stylesheet" href="https://vis-society.github.io/assignments/report.css" />
+</head>
+
+<body>
+	<header>
+		<h1>
+			<small>Assignment 2</small>
+			Exploratory Data Analysis
+		</h1>
+
+		<p>
+			<strong>Karen Nakamura</strong> — <em>kcnakamu@mit.edu</em>
+		</p>
+	</header>
+	<main>
+		<section>
+			<h2>Subtheme: Zoning and Housing Supply</h2>
+
+			<h3>Overall Analysis Questions</h3>
+			<ol>
+				<li>What are the geographical patterns of zoning?</li>
+				<li>Do municipalities with higher household income have stricter zoning laws?</li>
+				<li>Is there any correlation between zoning laws and municipal demographics? </li>
+			</ol>
+
+			I was motivated to uncover the grographical patterns of zoning because I was curious how the distance away from the city affected zoning laws. 
+			In the future, I want to live in or near a city, so I hoped to get a better understanding of what location would be the most advantageous when getting an apartment vs single-family housing based on the zoning laws.
+			Next, I was curious whether income led to stricter zoning laws because I would assume that affluent neighborhoods would want to keep their neighborhood the same, so they would advocate for stricter zoning laws. 
+			Finally, I read that zoning laws can be very harmful for marginalized demographics because it has been used historically to limit where low-income and minority households can live. 
+			I wanted to see how clear the disparity was in this dataset.
+		</section>
+
+		<section>
+			<h2>Discoveries & Insights</h2>
+
+			<figure>
+				<img src="zoning_spread.png" alt="Histogram of the percentage of residential area zoned only for single-family homes" />
+				<figcaption>
+					The x-axis encodes the proportion of Housing Area zoned exclusively for single-family homes in percent. I started with this visualization because it is central to my questions.
+					We can see that the majority of Boston Metro's municipalities have near zero percentage of residential area zoned only for single-family homes. 
+					However, there is also a significant number of municipalities that have extremely high percentages.
+					There is a concern that not all municipalities have zero single-family zoning, but for this assignment, I will assume that the values are valid.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="population_hist.png" alt="Histogram of Municipal Housing Zone Population" />
+				<figcaption>
+				I then plotted the population field. This histogram raised many questions: What is the unit of the population, and why does some numbers not add up? For example, Salem had the highest population, while cities like Somerville have zero population.
+				I dug into the 2010 United States Census data, and found that Boston had a population of 617,594 residents, while Salem had 41,340 residents. On the other hand, the total population was reported in the CSV data as 1,780 for Salem and 1,369 for Boston. 
+				I believe this is not a scaling issue, but rather that the dataset only keeps the housing zoning areas, and the population in those areas may not correlate with the overall population. 
+				</figcaption>
+
+			</figure>
+
+			<figure>
+				<img src="income_dist.png" alt="Stacked bar chart of household income by municipality" />
+				<figcaption>
+				 The data contains 15 income groups, but for more clarity, I consolidated it into 5 income groups: low-income (under $25K), lower-middle income ($25K-$50K), middle income ($50K - $100K), Upper-middle income ($100K - 150K), and Upper income ($150K). 
+				 This visualization was great at showing how both the household number and income distributions differs extremely across municipalities. 
+				 I believe this was more effective than visualizing proportions of different incomes (e.g. via pie chart or 100% stacked bar chart) because it matters how many households from each income groups reside in each municipality. 
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="housing_zone_map.png" alt="Map of Housing Zone Population by Municipality" />
+				<figcaption>
+				After confirming that the geojson file is a 1:1 match with the CSV file, I mapped the housing zone population. 
+				By shading the municipality with its housing zone population, we can clearly see that Salem has the highest housing zoning population, which supports our earlier analysis. 
+				I was surprised to see that there wasn't a clear geographical pattern. 
+				My initial assumption was that Boston would have the highest housing zone population because of its high population density, but this result makes sense because highly dense cities might have smaller housing zones. 
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="income_map.png" alt="Map of Housing Income by Municipality" />
+				<figcaption>
+				Next, I mapped the housing income to see if there was any geographical trends. I was extremely surprised to see that the majority of municipalities were considered Upper Income (income between $100K and $150K). 
+				I suppose it makes sense given that the Median Household income was $103,960 according to the 2024 Census.
+				Boston's dominant income group being low-income can be explained by how cities often have high income disparities, and the housing zone might be predominantly inhabited by lower-income individuals. 
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="single_family_map.png" alt="Map of Geographical Patterns of Zoning" />
+				<figcaption>
+				I visualized the proportion of single family zoning areas per municipality to answer my first question on the geographical patterns of zoning. 
+				100% means that all residential area in the municipality are zoned exclusively for single-family homes. 0% means all residential areas have no such exclusive zonings. 
+				Like the previous geographical visualizations, there's no clear patterns between zoning and geographic location. 
+				One caveat of this visualization is that it does not take into account the housing zone areas in each municipality. It can mislead viewers because even if the single-family home zoning portion is low, the home zoning area itself might be very small. 
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="map_u500.png" alt="Map of Single-Family Zoning for Municipalities with Housing Zone population of under 500" />
+				<img src="map_5001000.png" alt="Map of Single-Family Zoning for Municipalities with Housing Zone population of between 5000 and 1000" />
+				<img src="map_a1000.png" alt="Map of Single-Family Zoning for Municipalities with Housing Zone population of above 1000" />
+				<figcaption>
+				To combat the above visualization's issue, ideally, we would compute the total single-family zoning area, but that data is not available. Thus instead, I created multiple maps based on the housing zone populations. I could not figure out how to filter out municipalities without fully removing them (spent around an hour trying many things), so I manipulated the color palette.
+				 We can see that that proportion of low single-family zoning municipalities is comparable across different housing zone population groups. Thus, I believe that there isn't any significant geographical zoning patterns, even when taking into account the housing zone population. 
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="income_boxplot.png" alt="Household Income and Zoning Laws" />
+				<figcaption>
+				To answer my second question, I ran the analysis with the 5 income groups I defined earlier by finding which group was the majority for each municipal. 
+				There was a big difference between the amount of municipalities in each income group, with the minimum being 1 and the max being 70, so I wanted to steer away from simple aggregation analysis (i.e. taking the average).
+				Instead, I used a box plot with individual points to show the spread of the single-family zoning proportion among different dominant income levels. 
+				I believe that there might be a relationship between income and zoning laws because middle to upper income majority municipalities had higher single-family zoning proportion. However, I could also just be because there's more data points.
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="white_scatter.png" alt="Single-Family Zoning Proportion vs. Non-Hispanic White Population Proportion per Municipalities" />
+				<figcaption>
+				Finally, to answer my third question of relationship between zoning laws and municipal demographics, I used a scatter plot between the single-family zoning proportion and non-hispanic white population.
+				I chose non-hispanic white population as the y-axis because that demographic was the overwhelming majority when I plotted the distribution of different demographics. 
+				This scatter plot does not contain Burlington, Chelsea, Everett, and Somerville because it has zero population (division by zero). 
+				I also colored the data points with the dominant household income, but it seems like there isn't any clear relationship between all three variables. 
+				</figcaption>
+			</figure>
+
+			<figure>
+				<img src="u18_scatter.png" alt="Population 18 and Under vs Proportion of Single-Family Zoning Area" />
+				<img src="1864_scatter.png" alt="Population Between 18 and 65 and Above vs Proportion of Single-Family Zoning Area" />
+				<img src="a65_scatter.png" alt="Population 65 and Above vs Proportion of Single-Family Zoning Area" />
+
+				<figcaption>
+				I also wanted to explore if amount of people in a specific age group impacted single-family zoning proportion.
+				I decided to do the population instead of proportion because the municipality population varies largely, and proportion will obscure that difference. 
+				Based on the scatterplots, it seems like there is no clear relationship. 
+				I believe that further information or deeper analysis with more variable is necessary to determine any relationships.
+				</figcaption>
+			</figure>
+		</section>
+
+		<section>
+			<h2>Summary</h2>
+
+			<p>
+			In this exploratory analysis, I focused on three questions centered on zoning. I began with overall analysis and visualization to familarize myself with and sanity-check the data.
+			This step was crucial, because there were many findings that went against my assumption. One of the biggest one was regarding population. I initially thought that population referred to 
+			the overall municipality population and was very confused as to what the unit of measurement was. However, after visualizing, viewing the table, and digging into the U.S. Census Report, 
+			I understood that it was because the data only incorporated housing areas. Although that was explicitly stated in the metadata, it required multiple visualizations for me to internalize.
+			After inspecting important features, I proceeded into the next phase of answering my questions. I used geographical visualizations, box plots, and scatter plots to identify any relationship between
+			zoning and geographical area, income, and municipal demographics. I did not see any clear geographical or demographic patterns, but there might be an underlying/confounding factor that needs further exploration. 
+			Similarly, the box plot suggested that higher-income majority municipalities had stricter zoning laws, but this could be due to those income groups having more data points. 
+			One of the biggest challenges I faced through this analysis was that I did not have data on the zoning areas because of the corrupt geojson file (as reported on Slack). 
+			Because of this, I wasn't sure if the population was small because the housing area was small or if there was a low density of people. Thus, my next steps would be to retrieve this data and use it to normalize the data. 
+			Overall, I was able to dig deep into the data using Tableau and Python Pandas for data-quality validation, and I learned many skills like creating a calculated field to generate visualizations to answer my question. 
+			</p>
+		</section>
+	</main>
+</body>
+</html>
