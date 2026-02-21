@@ -58,7 +58,7 @@
 			</figure>
 
 			<figure>
-				<img src="income_dist.png" alt="Stacked bar chart of household income by municipality" />
+				<img src="income_histogram.png" alt="Stacked bar chart of household income by municipality" />
 				<figcaption>
 				 The data contains 15 income groups, but for more clarity, I consolidated it into 5 income groups: low-income (under $25K), lower-middle income ($25K-$50K), middle income ($50K - $100K), Upper-middle income ($100K - 150K), and Upper income ($150K). 
 				 This visualization was great at showing how both the household number and income distributions differs extremely across municipalities. 
@@ -79,7 +79,7 @@
 			<figure>
 				<img src="income_map.png" alt="Map of Housing Income by Municipality" />
 				<figcaption>
-				Next, I mapped the housing income to see if there was any geographical trends. I was extremely surprised to see that the majority of municipalities were considered Upper Income (income between $100K and $150K). 
+				Next, I mapped the housing income to see if there was any geographical trends. I was extremely surprised to see that the majority of municipalities were considered Upper Income (income above $150K). 
 				I suppose it makes sense given that the Median Household income was $103,960 according to the 2024 Census.
 				Boston's dominant income group being low-income can be explained by how cities often have high income disparities, and the housing zone might be predominantly inhabited by lower-income individuals. 
 				</figcaption>
@@ -100,7 +100,7 @@
 				<img src="map_5001000.png" alt="Map of Single-Family Zoning for Municipalities with Housing Zone population of between 5000 and 1000" />
 				<img src="map_a1000.png" alt="Map of Single-Family Zoning for Municipalities with Housing Zone population of above 1000" />
 				<figcaption>
-				To combat the above visualization's issue, ideally, we would compute the total single-family zoning area, but that data is not available. Thus instead, I created multiple maps based on the housing zone populations. I could not figure out how to filter out municipalities without fully removing them (spent around an hour trying many things), so I manipulated the color palette.
+				To combat the above visualization's issue, ideally, we would compute the total single-family zoning area, but that data is not available. Thus instead, I created multiple maps based on the housing zone populations. I could not figure out how to filter out municipalities without fully removing them (spent around an hour trying many things), so I manipulated the color palette by graying out filtered municipalities.
 				 We can see that that proportion of low single-family zoning municipalities is comparable across different housing zone population groups. Thus, I believe that there isn't any significant geographical zoning patterns, even when taking into account the housing zone population. 
 				</figcaption>
 			</figure>
@@ -111,7 +111,7 @@
 				To answer my second question, I ran the analysis with the 5 income groups I defined earlier by finding which group was the majority for each municipal. 
 				There was a big difference between the amount of municipalities in each income group, with the minimum being 1 and the max being 70, so I wanted to steer away from simple aggregation analysis (i.e. taking the average).
 				Instead, I used a box plot with individual points to show the spread of the single-family zoning proportion among different dominant income levels. 
-				I believe that there might be a relationship between income and zoning laws because middle to upper income majority municipalities had higher single-family zoning proportion. However, I could also just be because there's more data points.
+				I believe that there might be a relationship between income and zoning laws because middle to upper income majority municipalities had higher single-family zoning proportion. However, it could also just be because there's more data points.
 				</figcaption>
 			</figure>
 
